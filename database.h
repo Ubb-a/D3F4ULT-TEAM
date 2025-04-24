@@ -19,7 +19,7 @@ private:
     SQLHANDLE sqlStatementHandle;
     SQLRETURN retCode;
 
-    void showError(); // إضافة دالة لعرض أخطاء SQL
+    void showError(); 
 
 public:
     DatabaseConnection();
