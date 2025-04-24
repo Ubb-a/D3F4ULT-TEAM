@@ -28,35 +28,19 @@ void gch(DatabaseConnection& db, const string& dbPath) {
                 cout << "                                                     Enter Password: ";
                 getline(cin, password);
 
-                // بناء استعلام للتحقق من المستخدم في قاعدة البيانات
-                string query = "SELECT * FROM Guestes WHERE [Email] = '" + email + "' AND [Password] = '" + password + "'";
+                // البديل 1: باستخدام الدالة الجديدة checkLogin (المفضل)
+                string userName, userId, userPhone;
+                if (db.checkLogin(email, password, userName, userId, userPhone)) {
+                    cout << "                                                     Login successful!" << endl;
+                    cout << "                                                     Welcome, " << userName << "!" << endl;
 
-                // تنفيذ الاستعلام والتحقق من النتيجة
-                if (db.executeQuery(query)) {
-                    // التحقق مما إذا كان هناك نتائج مطابقة
-                    if (db.hasData()) {
-                        cout << "                                                     Login successful!" << endl;
-                        // هنا يمكنك إضافة الأكواد التي تريد تنفيذها بعد تسجيل الدخول الناجح
-                        // مثل عرض معلومات المستخدم أو الانتقال إلى قائمة المستخدم
-
-                        // مثال: عرض معلومات المستخدم
-                        cout << "                                                     Welcome, " << db.getFieldValue("Name") << "!" << endl;
-                        cout << "                                                     Your ID: " << db.getFieldValue("Guest ID") << endl;
-                        cout << "                                                     Phone: " << db.getFieldValue("Phone Number") << endl;
-
-                        system("pause");  // إيقاف مؤقت للشاشة
-                    } else {
-                        cout << "                                                     Invalid email or password! Please try again." << endl;
-                        system("pause");
-                    }
+                    system("pause");
                 } else {
-                    cout << "                                                     Error executing query!" << endl;
+                    cout << "                                                     Invalid email or password! Please try again." << endl;
                     system("pause");
                 }
-            } else {
-                cout << "                                                     Failed to connect to the database!" << endl;
-                system("pause");
             }
+
 
 
 
