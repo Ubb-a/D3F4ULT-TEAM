@@ -1,0 +1,5 @@
+# 0 "C:/Users/Abdelrhman/CLionProjects/untitled4/he5o he5o.cpp"
+# 1 "C:\\Users\\Abdelrhman\\CLionProjects\\untitled4\\cmake-build-debug//"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "C:/Users/Abdelrhman/CLionProjects/untitled4/he5o he5o.cpp"

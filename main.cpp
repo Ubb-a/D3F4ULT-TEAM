@@ -1,0 +1,44 @@
+#include <windows.h>
+#include <sql.h>
+#include <sqlext.h>
+#include <iostream>
+#include <string>
+#include "Design.h"
+#include "database.h"
+#include "func.h"
+
+using namespace std;
+
+void first_menu()
+{
+    hlogo();
+    menu1();
+    int choice;
+    while (true)
+    {
+        cin >> choice;
+        cin.ignore();
+        if (choice == 1)
+        {
+            gch();
+
+        }
+
+        if (choice == 2)
+        {
+            cout << "help";
+        }
+
+    }
+}
+
+
+int main()
+{
+    SetConsoleOutputCP(CP_UTF8);
+
+
+    first_menu();
+
+    return 0;
+}
