@@ -19,13 +19,16 @@ private:
     SQLHANDLE sqlStatementHandle;
     SQLRETURN retCode;
 
-    void showError(); 
+    void showError(); // إضافة دالة لعرض أخطاء SQL
 
 public:
     DatabaseConnection();
     bool connect(const std::string &dbPath);
     bool executeQuery(const std::string &query);
     ~DatabaseConnection();
+    bool checkLogin(const std::string& email, const std::string& password,
+               std::string& name, std::string& id, std::string& phone);
 };
+
 
 #endif //DATABASE_H
