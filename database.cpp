@@ -13,6 +13,7 @@ DatabaseConnection::DatabaseConnection()
     sqlStatementHandle = NULL;
 }
 
+
 bool DatabaseConnection::connect(const string &dbPath)
 {
     if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &sqlEnvHandle))
@@ -77,4 +78,40 @@ DatabaseConnection::~DatabaseConnection()
     }
     if (sqlEnvHandle)
         SQLFreeHandle(SQL_HANDLE_ENV, sqlEnvHandle);
+}
+
+bool DatabaseConnection::checkLogin(const string& email, const string& password,
+                                   string& name, string& id, string& phone)
+{
+    if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_STMT, sqlConnectionHandle, &sqlStatementHandle))
+        return false;
+
+    string query = "SELECT [Name], [Guest ID], [Phone Number] FROM Guestes WHERE [Email] = '" + email + "' AND [Password] = '" + password + "'";
+
+    if (SQL_SUCCESS != SQLExecDirect(sqlStatementHandle, (SQLCHAR*)query.c_str(), SQL_NTS))
+    {
+        showError();
+        return false;
+    }
+
+    // التحقق مما إذا كان هناك نتائج
+    if (SQL_SUCCESS == SQLFetch(sqlStatementHandle))
+    {
+        SQLCHAR nameBuffer[256], idBuffer[256], phoneBuffer[256];
+        SQLLEN nameLen, idLen, phoneLen;
+
+        // استخراج البيانات من النتيجة
+        SQLGetData(sqlStatementHandle, 1, SQL_C_CHAR, nameBuffer, sizeof(nameBuffer), &nameLen);
+        SQLGetData(sqlStatementHandle, 2, SQL_C_CHAR, idBuffer, sizeof(idBuffer), &idLen);
+        SQLGetData(sqlStatementHandle, 3, SQL_C_CHAR, phoneBuffer, sizeof(phoneBuffer), &phoneLen);
+
+        // تحويل البيانات إلى سلاسل نصية
+        name = string((char*)nameBuffer);
+        id = string((char*)idBuffer);
+        phone = string((char*)phoneBuffer);
+
+        return true;
+    }
+
+    return false;
 }
