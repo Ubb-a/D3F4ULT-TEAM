@@ -8,10 +8,38 @@ DatabaseConnection db;
 
 string dbPath = "C:\\Users\\Abdelrhman\\Desktop\\project\\D3F4ULT.accdb";
 
+void booking1(const string& guestId) {
+    if (db.connect(dbPath)) {
+        string checkin, checkout, roomnumber;
+        cout << "                                                     Enter Check-in Date (DD-MM-YYYY): ";
+        cin >> checkin;
+        cout << "                                                     Enter Check-out Date (DD-MM-YYYY): ";
+        cin >> checkout;
+        cout << "                                                     Enter Room Number: ";
+        cin >> roomnumber;
+
+        string q = "INSERT INTO Booking ([Check in], [Check out], [Room Number], [Guest ID]) VALUES ('"
+    + checkin + "', '" + checkout + "', '" + roomnumber + "', '" + guestId + "')";
+
+
+
+
+
+        if (db.executeQuery(q)) {
+            cout << "                                                     Data inserted successfully!" << endl;
+        } else {
+            cout << "                                                     Error inserting data!" << endl;
+        }
+    } else {
+        cout << "                                                     Failed to connect to the database!" << endl;
+    }
+}
+
+
+
 
 void gch(DatabaseConnection& db, const string& dbPath) {
-
-    int ch ;
+    int ch;
     while (true) {
         system("cls");
         guest();
@@ -20,7 +48,6 @@ void gch(DatabaseConnection& db, const string& dbPath) {
         cin.ignore();
 
         if (ch == 1) {
-
             if (db.connect(dbPath)) {
                 string email, password;
                 cout << "                                                     Enter Email: ";
@@ -28,22 +55,30 @@ void gch(DatabaseConnection& db, const string& dbPath) {
                 cout << "                                                     Enter Password: ";
                 getline(cin, password);
 
-                // البديل 1: باستخدام الدالة الجديدة checkLogin (المفضل)
                 string userName, userId, userPhone;
                 if (db.checkLogin(email, password, userName, userId, userPhone)) {
                     cout << "                                                     Login successful!" << endl;
+                    system("cls");
+
+                    booking();
+                    cout << endl;
                     cout << "                                                     Welcome, " << userName << "!" << endl;
 
+                    cout << "                                                     Your ID: " << userId << endl;
+
+                    if (userId.empty()) {
+                        cout << "                                                     Error: User ID is empty!" << endl;
+                        system("pause");
+                        continue;
+                    }
+
+                    booking1(userId);
                     system("pause");
                 } else {
                     cout << "                                                     Invalid email or password! Please try again." << endl;
                     system("pause");
                 }
             }
-
-
-
-
 
         }
         else if (ch == 2) {

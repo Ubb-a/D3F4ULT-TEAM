@@ -81,7 +81,7 @@ DatabaseConnection::~DatabaseConnection()
 }
 
 bool DatabaseConnection::checkLogin(const string& email, const string& password,
-                                   string& name, string& id, string& phone)
+                                  string& name, string& id, string& phone)
 {
     if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_STMT, sqlConnectionHandle, &sqlStatementHandle))
         return false;
@@ -94,21 +94,29 @@ bool DatabaseConnection::checkLogin(const string& email, const string& password,
         return false;
     }
 
+    SQLCHAR nameBuffer[256] = {0};
+    SQLCHAR idBuffer[256] = {0};
+    SQLCHAR phoneBuffer[256] = {0};
+    SQLLEN nameLen = 0, idLen = 0, phoneLen = 0;
+
+    // ربط الأعمدة بالمتغيرات
+    SQLBindCol(sqlStatementHandle, 1, SQL_C_CHAR, nameBuffer, sizeof(nameBuffer), &nameLen);
+    SQLBindCol(sqlStatementHandle, 2, SQL_C_CHAR, idBuffer, sizeof(idBuffer), &idLen);
+    SQLBindCol(sqlStatementHandle, 3, SQL_C_CHAR, phoneBuffer, sizeof(phoneBuffer), &phoneLen);
+
     // التحقق مما إذا كان هناك نتائج
     if (SQL_SUCCESS == SQLFetch(sqlStatementHandle))
     {
-        SQLCHAR nameBuffer[256], idBuffer[256], phoneBuffer[256];
-        SQLLEN nameLen, idLen, phoneLen;
-
-        // استخراج البيانات من النتيجة
-        SQLGetData(sqlStatementHandle, 1, SQL_C_CHAR, nameBuffer, sizeof(nameBuffer), &nameLen);
-        SQLGetData(sqlStatementHandle, 2, SQL_C_CHAR, idBuffer, sizeof(idBuffer), &idLen);
-        SQLGetData(sqlStatementHandle, 3, SQL_C_CHAR, phoneBuffer, sizeof(phoneBuffer), &phoneLen);
-
         // تحويل البيانات إلى سلاسل نصية
         name = string((char*)nameBuffer);
         id = string((char*)idBuffer);
         phone = string((char*)phoneBuffer);
+
+        // إزالة الأحرف NULL في نهاية السلسلة
+        name = name.c_str();
+        id = id.c_str();
+        phone = phone.c_str();
+
 
         return true;
     }

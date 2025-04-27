@@ -20,7 +20,9 @@ void first_menu()
         cin.ignore();
         if (choice == 1)
         {
-            gch();
+            DatabaseConnection db;
+            string dbPath = "C:\\Users\\Abdelrhman\\Desktop\\project\\D3F4ULT.accdb";
+            gch(db, dbPath);
 
         }
 

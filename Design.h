@@ -10,5 +10,6 @@ void menu1();
 void gmenu();
 void guest();
 void employee();
+void booking();
 
 #endif //DESIGN_H

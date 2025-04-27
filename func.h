@@ -5,6 +5,9 @@
 #ifndef FUNC_H
 #define FUNC_H
 
-void gch();
+#include "database.h"
+#include <string>
+
+void gch(DatabaseConnection& db, const std::string& dbPath);
 
 #endif //FUNC_H
