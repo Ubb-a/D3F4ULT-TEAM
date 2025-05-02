@@ -11,5 +11,12 @@ void gmenu();
 void guest();
 void employee();
 void booking();
+void emenu();
+void admin();
+void adminmenu();
+void posliset();
+void room_service();
+void room_num();
+
 
 #endif //DESIGN_H

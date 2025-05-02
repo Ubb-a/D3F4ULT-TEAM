@@ -6,8 +6,10 @@
 #include "Design.h"
 #include "database.h"
 #include "func.h"
+#include "Room_se.h"
 
 using namespace std;
+
 
 void first_menu()
 {
@@ -28,7 +30,10 @@ void first_menu()
 
         if (choice == 2)
         {
-            cout << "help";
+            DatabaseConnection db;
+            string dbPath = "C:\\Users\\Abdelrhman\\Desktop\\project\\D3F4ULT.accdb";
+
+           ech(db, dbPath);
         }
 
     }
@@ -41,6 +46,7 @@ int main()
 
 
     first_menu();
+
 
     return 0;
 }

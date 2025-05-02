@@ -9,5 +9,6 @@
 #include <string>
 
 void gch(DatabaseConnection& db, const std::string& dbPath);
+void ech(DatabaseConnection& db, const std::string& dbPath);
 
 #endif //FUNC_H

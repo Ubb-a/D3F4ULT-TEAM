@@ -33,7 +33,7 @@ if (db.connect(dbPath))
 
 
 /*
-// ... existing code ...
+
 
 
 void first_menu(DatabaseConnection& db, const string& dbPath)
@@ -101,5 +101,30 @@ void first_menu(DatabaseConnection& db, const string& dbPath)
         }
     }
 }
-// ... existing code ...
+
  */
+
+
+// else if (c == 2) {
+//     if (db.connect(dbPath)) {
+//         string name, pos, email, password,id;
+//         cout << "                                                     Enter id: ";
+//         getline(cin, id);
+//         cout << "                                                     Enter Name: ";
+//         getline(cin, name);
+//         cout << "                                                     Enter position: ";
+//         getline(cin, pos);
+//         cout << "                                                     Enter Email: ";
+//         getline(cin, email);
+//         cout << "                                                     Enter Password: ";
+//         getline(cin, password);
+//
+//
+//
+//         string query = "INSERT INTO Employees ([Employee ID], [Position], [Name], [Email], [Password]) VALUES ('"
+//         + id +"', '"+ pos + "', '" + name + "', '" + email + "', '" + password + "')";
+//         if (db.executeQuery(query)) {
+//             cout << "                                                     Data inserted successfully!" << endl;
+//         }
+//     }
+// }
