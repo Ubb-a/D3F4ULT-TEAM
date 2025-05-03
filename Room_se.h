@@ -28,6 +28,6 @@ vector<Trash> initializeTrashTypes();
 
 // Function to start and run the trash cleaning game
 // By default, will generate a random number of trash items between 1 and 20
-void runTrashGame(int trashesToGenerate = 20);
+void room_service_g(int trashesToGenerate = 20);
 
 #endif //ROOM_SE_H

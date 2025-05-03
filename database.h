@@ -30,6 +30,7 @@ public:
                string& name, string& id, string& phone);
 
     bool Login(const string &email, const string &password, string &name , string &pos);
+    bool isRoomBooked(int roomNumber, const std::string& checkIn, const std::string& checkOut);
 
 };
 

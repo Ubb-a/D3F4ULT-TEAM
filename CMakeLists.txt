@@ -11,5 +11,7 @@ add_executable(untitled4 main.cpp
         func.cpp
         func.h
         Room_se.cpp
-        Room_se.h)
+        Room_se.h
+        qrcodegen.cpp
+        qrcodegen.hpp)
 target_link_libraries(untitled4 odbc32)

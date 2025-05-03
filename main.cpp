@@ -1,52 +1,44 @@
-#include <windows.h>
-#include <sql.h>
-#include <sqlext.h>
-#include <iostream>
-#include <string>
-#include "Design.h"
-#include "database.h"
+#include <bits/stdc++.h>
 #include "func.h"
+#include "database.h"
+#include "Design.h"
 #include "Room_se.h"
 
 using namespace std;
 
+int main() {
+    DatabaseConnection db;
+    string dbPath = "C:\\Users\\Abdelrhman\\Desktop\\project\\D3F4ULT.accdb";
 
-void first_menu()
-{
-    hlogo();
-    menu1();
     int choice;
-    while (true)
-    {
+    SetConsoleOutputCP(CP_UTF8);
+    while (true) {
+        system("cls");
+        hlogo();
+        menu1();
         cin >> choice;
         cin.ignore();
-        if (choice == 1)
-        {
-            DatabaseConnection db;
-            string dbPath = "C:\\Users\\Abdelrhman\\Desktop\\project\\D3F4ULT.accdb";
+
+        if (choice == 1) {
             gch(db, dbPath);
 
         }
+        else if (choice == 2) {
+            ech(db, dbPath);
 
-        if (choice == 2)
-        {
-            DatabaseConnection db;
-            string dbPath = "C:\\Users\\Abdelrhman\\Desktop\\project\\D3F4ULT.accdb";
-
-           ech(db, dbPath);
         }
-
+        else if (choice == 0) {
+            cout << "                                                     Exiting program. Goodbye!" << endl;
+            break;
+        }
+        else if (choice == 3) {
+            printQRCode("https://f.top4top.io/p_3410wcz891.png");
+        }
+        else {
+            cout << "                                                     Invalid choice! Please try again." << endl;
+            system("pause");
+        }
     }
-}
-
-
-int main()
-{
-    SetConsoleOutputCP(CP_UTF8);
-
-
-    first_menu();
-
 
     return 0;
 }

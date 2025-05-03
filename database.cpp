@@ -99,7 +99,6 @@ bool DatabaseConnection::checkLogin(const string& email, const string& password,
     SQLCHAR phoneBuffer[256] = {0};
     SQLLEN nameLen = 0, idLen = 0, phoneLen = 0;
 
-    // ربط الأعمدة بالمتغيرات
     SQLBindCol(sqlStatementHandle, 1, SQL_C_CHAR, nameBuffer, sizeof(nameBuffer), &nameLen);
     SQLBindCol(sqlStatementHandle, 2, SQL_C_CHAR, idBuffer, sizeof(idBuffer), &idLen);
     SQLBindCol(sqlStatementHandle, 3, SQL_C_CHAR, phoneBuffer, sizeof(phoneBuffer), &phoneLen);
@@ -140,7 +139,6 @@ bool DatabaseConnection::Login(const string& email, const string& password,
 
     SQLLEN nameLen = 0, posLen = 0;
 
-    // ربط الأعمدة بالمتغيرات
     SQLBindCol(sqlStatementHandle, 1, SQL_C_CHAR, nameBuffer, sizeof(nameBuffer), &nameLen);
     SQLBindCol(sqlStatementHandle, 2, SQL_C_CHAR, posBuffer, sizeof(posBuffer), &posLen);
 
@@ -157,6 +155,39 @@ bool DatabaseConnection::Login(const string& email, const string& password,
 
 
         return true;
+    }
+
+    return false;
+}
+
+bool DatabaseConnection::isRoomBooked(int roomNumber, const string& checkIn, const string& checkOut)
+{
+    if (SQL_SUCCESS != SQLAllocHandle(SQL_HANDLE_STMT, sqlConnectionHandle, &sqlStatementHandle))
+        return false;
+
+    // Create SQL query to check for overlapping bookings using proper date formatting
+    string room_number = to_string(roomNumber);
+
+    // Format dates correctly for MS Access using # symbols
+    // Note: Room Number is a numeric field, so no quotes should be used
+    string query = "SELECT COUNT(*) FROM Booking WHERE [Room Number] = " + room_number + " AND "
+                   "NOT ((#" + checkOut + "# <= [Check in]) OR "
+                   "(#" + checkIn + "# >= [Check out]))";
+
+    if (SQL_SUCCESS != SQLExecDirect(sqlStatementHandle, (SQLCHAR*)query.c_str(), SQL_NTS))
+    {
+        showError();
+        return false;
+    }
+
+    SQLINTEGER bookingCount = 0;
+    SQLLEN count = 0;
+
+    SQLBindCol(sqlStatementHandle, 1, SQL_C_LONG, &bookingCount, sizeof(bookingCount), &count);
+
+    if (SQL_SUCCESS == SQLFetch(sqlStatementHandle))
+    {
+        return bookingCount > 0;
     }
 
     return false;

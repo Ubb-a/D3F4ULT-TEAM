@@ -32,6 +32,8 @@ void menu1() {
                                                     │                   │
                                                     │ 2.Employee        │
                                                     │                   │
+                                                    │ 0.Exit            │
+                                                    │                   │
                                                     └───────────────────┘
                                                      Enter your choice :)";
 }
@@ -60,6 +62,8 @@ void gmenu() {
                                                     │     1.LOGIN       │
                                                     │                   │
                                                     │     2.REGISTER    │
+                                                    │                   │
+                                                    │     0.LOGOUT      │
                                                     │                   │
                                                     └───────────────────┘
                                                      Enter your choice : )";
@@ -95,6 +99,8 @@ void emenu() {
                                                     │                   │
                                                     │     1.LOGIN       │
                                                     │                   │
+                                                    │     0.Go back     │
+                                                    │                   │
                                                     └───────────────────┘
                                                      Enter your choice : )";
 }
@@ -125,6 +131,8 @@ void adminmenu() {
                                                   │ 1.Position list   │
                                                   │                   │
                                                   │ 2.Create account  │
+                                                  │                   │
+                                                  │ 0.LOGOUT          │
                                                   │                   │
                                                   └───────────────────┘
                                                   Enter your choice : )";
